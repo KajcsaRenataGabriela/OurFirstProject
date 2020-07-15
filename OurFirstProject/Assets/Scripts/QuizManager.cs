@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class QuizManager : MonoBehaviour
 {
     [SerializeField]
-    private List<Questions> questions;
+    private List<Question> questions;
 
-    private Questions selectQuestion;
+    private Question selectedQuestion;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,19 +24,33 @@ public class QuizManager : MonoBehaviour
 
     void SelectQuestion()
     {
-        int val;//= Random.Range(0, questions.Count);
-      //  selectedQuestion = questions[val];
+        int val= UnityEngine.Random.Range(0, questions.Count);
+        selectedQuestion = questions[val];
     }
 
-    void Answer()
+   public bool Answer(string answered)
     {
+        bool correctAns = false;
 
+        if(answered == selectedQuestion.correctAns)
+        {
+            //yes
+            correctAns = true;
+        }
+        else
+        {
+            //No
+        }
+
+        Invoke("SelectQuestion", 0.4f);
+
+        return correctAns;
     }
 }
 
 [System.Serializable]
 
-public class Questions
+public class Question
 {
     public string questionInfo;
     public QuestionType questionType;
